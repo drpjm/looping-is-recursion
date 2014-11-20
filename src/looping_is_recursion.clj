@@ -47,11 +47,29 @@
       (/ sum count)
       (recur (+ sum (first curr-seq)) (inc count) (rest curr-seq)))))
 
+(defn toggle [a-set elem]
+  (if (contains? a-set elem)
+    (disj a-set elem)
+    (conj a-set elem)
+    ))
+
 (defn parity [a-seq]
-  ":(")
+  (loop [partiy-set #{}
+         curr-seq a-seq]
+    (if (empty? curr-seq)
+      partiy-set
+      (recur (toggle partiy-set (first curr-seq)) (rest curr-seq)))))
 
 (defn fast-fibo [n]
-  ":(")
+  (loop [fn-1 0
+         fn-2 1
+         fib 0
+         idx n]
+    (cond
+      (zero? n) 0
+      (= n 1) 1
+      (zero? idx) fib
+      :else (recur fn-2 fib (+ fn-1 fn-2) (dec n)))))
 
 (defn cut-at-repetition [a-seq]
   [":("])
