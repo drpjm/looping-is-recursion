@@ -32,10 +32,20 @@
     (helper true seq1 seq2)))
 
 (defn find-first-index [pred a-seq]
-  ":(")
+  (loop [idx 0
+         curr-seq a-seq]
+    (cond
+      (empty? curr-seq) nil
+      (pred (first curr-seq)) idx
+      :else (recur (inc idx) (rest curr-seq)))))
 
 (defn avg [a-seq]
-  -1)
+  (loop [sum 0
+         count 0
+         curr-seq a-seq]
+    (if (empty? curr-seq)
+      (/ sum count)
+      (recur (+ sum (first curr-seq)) (inc count) (rest curr-seq)))))
 
 (defn parity [a-seq]
   ":(")
