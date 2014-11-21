@@ -61,16 +61,21 @@
       (recur (toggle partiy-set (first curr-seq)) (rest curr-seq)))))
 
 (defn fast-fibo [n]
-  (loop [fn-1 0
-         fn-2 1
-         fib 0
-         idx n]
+  (loop [fn-2 0
+         fn-1 1
+         idx (dec n)]
     (cond
       (zero? n) 0
       (= n 1) 1
-      (zero? idx) fib
-      :else (recur fn-2 fib (+ fn-1 fn-2) (dec n)))))
+      (zero? idx) fn-1
+      :else (recur fn-1 (+ fn-1 fn-2) (dec idx)) )))
 
 (defn cut-at-repetition [a-seq]
-  [":("])
+  (loop [curr-seq a-seq
+         curr-elems #{}
+         curr-cut []]
+    (cond 
+      (empty? curr-seq) curr-cut
+      (contains? curr-elems (first curr-seq)) curr-cut
+      :else (recur (rest curr-seq) (conj curr-elems (first curr-seq)) (conj curr-cut (first curr-seq))))))
 
